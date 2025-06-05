@@ -72,9 +72,8 @@ def split_video_into_frames_with_timestamps(video_path, frames_dir='frames_tstam
 
 # === Пример использования ===
 if __name__ == '__main__':
-    # url = 'https://youtu.be/QnL21aOrz5w'
+
     url = input('Введите ссылку на видео YouTube: ')
-    # url = 'https://www.youtube.com/watch?v=QnL21aOrz5w'
     video_file = 'downloaded_video.mp4'
 
     download_video(url, video_file)
