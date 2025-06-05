@@ -1,7 +1,10 @@
-from pytube import YouTube
-import cv2
 import os
 import yt_dlp
+from pytube import YouTube
+
+import cv2
+import av
+from PIL import Image
 
 def download_video(url, output_path='video.mp4'):
     ydl_opts = {
@@ -69,14 +72,40 @@ def split_video_into_frames_with_timestamps(video_path, frames_dir='frames_tstam
 
     print(f"Извлечено {frame_count} кадров. Временные метки сохранены.")
 
+def split_video_with_pyav(video_path, frames_dir='frames_pyav'):
+    os.makedirs(frames_dir, exist_ok=True)
+    container = av.open(video_path)
+    stream = container.streams.video[0]
+
+    timestamps = []
+    frame_count = 0
+
+    for frame in container.decode(stream):
+        img = frame.to_image()
+        # frame_filename = os.path.join(frames_dir, f'frame_{frame_count:05d}.jpg')
+        # img.save(frame_filename)
+        frame_filename = os.path.join(frames_dir, f'frame_{frame_count:05d}.png')
+        img.save(frame_filename, quality=100)
+
+        timestamps.append(frame.pts * stream.time_base)
+        frame_count += 1
+
+    with open(os.path.join(frames_dir, 'timestamps.txt'), 'w') as f:
+        for i, t in enumerate(timestamps):
+            f.write(f'frame_{i:05d}.jpg\t{t:.6f} sec\n')
+
+    print(f"Готово: {frame_count} кадров.")
+
+
 
 # === Пример использования ===
 if __name__ == '__main__':
 
-    url = input('Введите ссылку на видео YouTube: ')
+    # url = input('Введите ссылку на видео YouTube: ')
     video_file = 'downloaded_video.mp4'
 
-    download_video(url, video_file)
+    # download_video(url, video_file)
     # download_youtube_video(url, video_file)
     # split_video_into_frames(video_file, 'frames')
-    split_video_into_frames_with_timestamps(video_file, 'frames_tstamps')
+    # split_video_into_frames_with_timestamps(video_file, 'frames_tstamps')
+    split_video_with_pyav(video_file, 'frames_pyav')
