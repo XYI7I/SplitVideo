@@ -102,10 +102,10 @@ def split_video_with_pyav(video_path, frames_dir='frames_pyav'):
 if __name__ == '__main__':
 
     # url = input('Введите ссылку на видео YouTube: ')
-    video_file = 'downloaded_video.mp4'
+    video_file = 'video/news.mp4'
 
     # download_video(url, video_file)
     # download_youtube_video(url, video_file)
     # split_video_into_frames(video_file, 'frames')
     # split_video_into_frames_with_timestamps(video_file, 'frames_tstamps')
-    split_video_with_pyav(video_file, 'frames_pyav')
+    split_video_with_pyav(video_file, 'frames_news')
