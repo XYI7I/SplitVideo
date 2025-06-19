@@ -6,12 +6,14 @@ import matplotlib.pyplot as plty
 from collections import Counter
 from scipy.signal import periodogram
 
+from research import get_fps_from_timestamps
 
+fps = get_fps_from_timestamps('news/timestamps.txt')
 
 timeser = []
-timesch = np.load('mult/time_scene_change.npy')
+timesch = np.load('news/time_scene_change.npy')
 for i in range(len(timesch)):
-    timeser.append(i/30)
+    timeser.append(i/fps)
 
 plt.plot(timesch)
 # plt.xlabel("Время (секунды)")

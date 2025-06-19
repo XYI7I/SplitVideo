@@ -184,7 +184,8 @@ def analyze_scene_change_periods_old(changes, total_frames, fps, output_path='sc
 # === Основной блок ===
 if __name__ == '__main__':
     frames_folder = input("Введите путь к папке с извлечёнными кадрами: ")  # Путь к извлечённым кадрам
-    fps = get_fps_from_timestamps('mult/timestamps.txt')     # Частота кадров видео
+    fps = get_fps_from_timestamps('news/timestamps.txt')
+    print(fps)     # Частота кадров видео
 
     # print("Загружаем кадры...")
     # frames = load_frames_from_folder(frames_folder)
